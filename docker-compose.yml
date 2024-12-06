@@ -1,10 +1,10 @@
 services:
   kalilinux:
-    hostname: kalilinux.lab
+    hostname: localhost
     build:
       context: ./
       dockerfile: Dockerfile
-    image: 'csalab/kalilinux-docker:${VERSION:-latest}'
+    image: 'csalab/kalilinux-docker:slim'
     restart: always
     cap_add:
       - NET_ADMIN

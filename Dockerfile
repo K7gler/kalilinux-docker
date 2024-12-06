@@ -1,7 +1,6 @@
 FROM kalilinux/kali-rolling:latest
 LABEL maintainer="admin@csalab.id"
-RUN sed -i "s/http.kali.org/mirrors.ocf.berkeley.edu/g" /etc/apt/sources.list && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install \
     sudo \
@@ -31,7 +30,10 @@ RUN apt-get -y autoremove && \
     sed -i "s/off/remote/g" /usr/share/novnc/app/ui.js && \
     echo "kali ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     touch /usr/share/novnc/index.htm
+RUN apt-get update && apt-get install -y dos2unix
 COPY startup.sh /startup.sh
+RUN dos2unix /startup.sh && chmod +x /startup.sh
+RUN sed -i 's/\r$//' /startup.sh
 USER kali
 WORKDIR /home/kali
 ENV PASSWORD=kalilinux
