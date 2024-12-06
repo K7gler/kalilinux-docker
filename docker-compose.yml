@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   kalilinux:
     hostname: kalilinux.lab
@@ -14,6 +13,8 @@ services:
     environment:
       - SHELL=/bin/bash
       - PASSWORD=${PASSWORD:-kalilinux}
+    env_file:
+      - .env
     volumes:
       - data:/home/kali/Desktop
     entrypoint: ["/bin/bash", "/startup.sh"]
